@@ -3,7 +3,7 @@
 ### Português
 Desafio técnico desenvolvido para vaga de desenvolvedor .NET.
 
-Tecnologias usadas: 
+Tecnologias usadas: .NET 6, Cloud Firestore (da Firebase) e OpenAPI 3.0.3 (Swagger).
 
 Descrição do Desafio:
 Uma empresa fechou o ano de operação com lucro e deseja reparti-lo entre seus funcionários, com o objetivo de ser justa criou uma regra para a distribuição deste montante por: área, tempo de empresa, e faixa salarial (os funcionários que ganham menos teriam sua participação incrementada). Para isso foi solicitado ao time de tecnologia que desenvolva uma API REST que receba um valor máximo para distribuir e distribua o montante para os funcionários já cadastrados com os dados abaixo. Tal distribuição segue determinadas regras descritas a seguir.
