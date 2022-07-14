@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.API", "StoneChallenge.API\StoneChallenge.API.csproj", "{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93219D47-B89D-496F-B18F-71B682E01B8A} = {93219D47-B89D-496F-B18F-71B682E01B8A}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Application", "StoneChallenge.Application\StoneChallenge.Application.csproj", "{4CEF6003-62DF-444F-965A-10CC4350DE69}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE9B680D-553C-4E89-98F5-AC92844DD041} = {FE9B680D-553C-4E89-98F5-AC92844DD041}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Domain", "StoneChallenge.Domain\StoneChallenge.Domain.csproj", "{FE9B680D-553C-4E89-98F5-AC92844DD041}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Infra.Data", "StoneChallenge.Infra.Data\StoneChallenge.Infra.Data.csproj", "{C13C7403-E572-47B5-9FC5-9140382899C5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FE9B680D-553C-4E89-98F5-AC92844DD041} = {FE9B680D-553C-4E89-98F5-AC92844DD041}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneChallenge.Infra.IoC", "StoneChallenge.Infra.IoC\StoneChallenge.Infra.IoC.csproj", "{93219D47-B89D-496F-B18F-71B682E01B8A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4CEF6003-62DF-444F-965A-10CC4350DE69} = {4CEF6003-62DF-444F-965A-10CC4350DE69}
+		{C13C7403-E572-47B5-9FC5-9140382899C5} = {C13C7403-E572-47B5-9FC5-9140382899C5}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CEF6003-62DF-444F-965A-10CC4350DE69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CEF6003-62DF-444F-965A-10CC4350DE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CEF6003-62DF-444F-965A-10CC4350DE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CEF6003-62DF-444F-965A-10CC4350DE69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE9B680D-553C-4E89-98F5-AC92844DD041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE9B680D-553C-4E89-98F5-AC92844DD041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE9B680D-553C-4E89-98F5-AC92844DD041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE9B680D-553C-4E89-98F5-AC92844DD041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C13C7403-E572-47B5-9FC5-9140382899C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C13C7403-E572-47B5-9FC5-9140382899C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C13C7403-E572-47B5-9FC5-9140382899C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C13C7403-E572-47B5-9FC5-9140382899C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93219D47-B89D-496F-B18F-71B682E01B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93219D47-B89D-496F-B18F-71B682E01B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93219D47-B89D-496F-B18F-71B682E01B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93219D47-B89D-496F-B18F-71B682E01B8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2815308-BE67-4B1A-9FF8-F397DE277FC5}
+	EndGlobalSection
+EndGlobal
