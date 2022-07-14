@@ -20,11 +20,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Infra.Data",
 		{FE9B680D-553C-4E89-98F5-AC92844DD041} = {FE9B680D-553C-4E89-98F5-AC92844DD041}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneChallenge.Infra.IoC", "StoneChallenge.Infra.IoC\StoneChallenge.Infra.IoC.csproj", "{93219D47-B89D-496F-B18F-71B682E01B8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Infra.IoC", "StoneChallenge.Infra.IoC\StoneChallenge.Infra.IoC.csproj", "{93219D47-B89D-496F-B18F-71B682E01B8A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4CEF6003-62DF-444F-965A-10CC4350DE69} = {4CEF6003-62DF-444F-965A-10CC4350DE69}
 		{C13C7403-E572-47B5-9FC5-9140382899C5} = {C13C7403-E572-47B5-9FC5-9140382899C5}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneChallenge.Tests", "StoneChallenge.Tests\StoneChallenge.Tests.csproj", "{39ED893F-456C-4A3C-8D79-A12B483928E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{93219D47-B89D-496F-B18F-71B682E01B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93219D47-B89D-496F-B18F-71B682E01B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93219D47-B89D-496F-B18F-71B682E01B8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39ED893F-456C-4A3C-8D79-A12B483928E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39ED893F-456C-4A3C-8D79-A12B483928E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39ED893F-456C-4A3C-8D79-A12B483928E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39ED893F-456C-4A3C-8D79-A12B483928E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
