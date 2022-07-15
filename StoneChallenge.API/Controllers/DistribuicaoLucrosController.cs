@@ -1,35 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StoneChallenge.Application.Interfaces;
+using StoneChallenge.Domain.Interfaces.Repositories;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StoneChallenge.API.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [ApiVersion("1")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class DistribuicaoLucrosController : Controller
     {
-        private readonly IFuncionarioService _funcionarioService;
+        private readonly IFuncionarioRepository _funcionarioRepository;
+        private readonly IPesosDistribuicaoLucrosService _pesosDistribuicaoLucrosService;
         private readonly ILogger<DistribuicaoLucrosController> _logger;
 
         public DistribuicaoLucrosController(ILogger<DistribuicaoLucrosController> logger,
-                            IFuncionarioService funcionarioService)
+                                            IFuncionarioRepository funcionarioRepository,
+                                            IPesosDistribuicaoLucrosService pesosDistribuicaoLucrosService)
         {
             _logger = logger;
-            _funcionarioService = funcionarioService;
+            _funcionarioRepository = funcionarioRepository;
+            _pesosDistribuicaoLucrosService = pesosDistribuicaoLucrosService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IDictionary<string, object>>> GetAll()
+        [HttpGet("calcular-bonus")]
+        [SwaggerOperation(
+            Summary = "Calcula o bônus de cada funcionário",
+            Description = "Reparte os lucros entre os funcionários baseado em pesos de acordo com a área, tempo de empresa e faixa salarial."
+            )]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IDictionary<string, object>>> calcularBonus()
         {
-            var result = await _funcionarioService.GetAll();
+            var funcionarios = await _funcionarioRepository.GetAll();
 
-            if (result == null)
-            {
-                _logger.LogError("GetAll Alunos falhou.");
-                return NotFound("Alunos não encontrados.");
-            }
-
-            _logger.LogInformation("GetAll Alunos encontradas.");
-            return Ok(result);
+            return Ok(funcionarios);
         }
     }
 }

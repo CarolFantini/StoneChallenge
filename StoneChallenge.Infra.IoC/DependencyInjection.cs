@@ -12,11 +12,12 @@ namespace StoneChallenge.Infra.IoC
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
                                                                 IConfiguration configuration)
         {
-            // Repository Injection
+            // Repositories Injection
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddScoped<IAreasAtuacaoRepository, AreasAtuacaoRepository>();
 
             // Services Injection
-            services.AddScoped<IFuncionarioService, FuncionarioService>();
+            services.AddScoped<IPesosDistribuicaoLucrosService, PesosDistribuicaoLucrosService>();
 
             return services;
         }

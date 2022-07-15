@@ -13,6 +13,6 @@ namespace StoneChallenge.Domain.Entities
         public string? AreaAtuacao { get; private set; }
         public string? Cargo { get; private set; }
         public float Salario { get; private set; }
-        public DateOnly DataAdmissao { get; private set; }
+        public DateTime DataAdmissao { get; private set; }
     }
 }
