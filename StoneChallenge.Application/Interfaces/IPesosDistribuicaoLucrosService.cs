@@ -11,6 +11,6 @@ namespace StoneChallenge.Application.Interfaces
     {
         int CalculaPesoSalario(Funcionario funcionario);
         int CalculaPesoDataAdmissao(Funcionario funcionario);
-        Task<int> CalculaPesoAreaAdmissao(Funcionario funcionario);
+        Task<int> CalculaPesoAreaAtuacao(Funcionario funcionario);
     }
 }

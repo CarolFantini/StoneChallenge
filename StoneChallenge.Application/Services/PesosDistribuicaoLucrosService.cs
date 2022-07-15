@@ -24,7 +24,7 @@ namespace StoneChallenge.Application.Services
             DateTime dataAtual = DateTime.Now.Date;
             int pesoDataAdmissao = 0;
 
-            var DiferencaEntreDatas = (dataAtual - funcionario.DataAdmissao).Days;
+            var DiferencaEntreDatas = (dataAtual - funcionario.DataAdmissao.Date).Days;
 
             DiferencaEntreDatas = DiferencaEntreDatas / DIAS_NO_ANO;
 
@@ -47,7 +47,7 @@ namespace StoneChallenge.Application.Services
             return pesoDataAdmissao;
         }
 
-        public async Task<int> CalculaPesoAreaAdmissao(Funcionario funcionario)
+        public async Task<int> CalculaPesoAreaAtuacao(Funcionario funcionario)
         {
             var areasDeAtuacao = await _areasAtuacaoRepository.GetAll();
 
@@ -60,7 +60,7 @@ namespace StoneChallenge.Application.Services
         {
             const float SALARIO_MINIMO = 1212;
             int pesoSalario = 0;
-            float multiplicadorSalarioMinimo = funcionario.Salario / SALARIO_MINIMO;
+            var multiplicadorSalarioMinimo = funcionario.Salario / SALARIO_MINIMO;
 
             switch (multiplicadorSalarioMinimo)
             {

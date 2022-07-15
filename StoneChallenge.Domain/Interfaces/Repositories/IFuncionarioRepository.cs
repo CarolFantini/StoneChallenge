@@ -9,6 +9,6 @@ namespace StoneChallenge.Domain.Interfaces.Repositories
 {
     public interface IFuncionarioRepository
     {
-        Task<IDictionary<string, object>> GetAll();
+        Task<IList<Funcionario>> GetAll();
     }
 }

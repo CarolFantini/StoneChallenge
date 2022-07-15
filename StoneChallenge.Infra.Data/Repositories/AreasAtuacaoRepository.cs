@@ -22,35 +22,20 @@ namespace StoneChallenge.Infra.Data.Repositories
 
         public async Task<IDictionary<string, object>> GetAll()
         {
-            CollectionReference collectionAreasDeAtuacao = _firestoreDb.Collection("funcionarios");
-            QuerySnapshot snapshot = await collectionAreasDeAtuacao.GetSnapshotAsync();
+            Query allCitiesQuery = _firestoreDb.Collection("areas-atuacao");
+            QuerySnapshot snapshot = await allCitiesQuery.GetSnapshotAsync();
             IDictionary<string, object> areasDeAtuacao = new Dictionary<string, object>();
 
             foreach (DocumentSnapshot document in snapshot.Documents)
             {
                 if (document.Exists)
                 {
-                    areasDeAtuacao = document.ToDictionary();
+                    var KeyValuePair = document.ToDictionary();
+                    areasDeAtuacao.Add(KeyValuePair.FirstOrDefault());
                 }
             }
 
             return areasDeAtuacao;
-        }
-
-        public async Task<bool> InsertAreasDeAtuacao(IDictionary<string, object> areasAtuacao)
-        {
-            foreach (var area in areasAtuacao)
-            {
-                DocumentReference docRef = _firestoreDb.Collection("areas-de-atuacao").Document("areas");
-                IDictionary<string, object> areaAtuacao = new Dictionary<string, object>
-                {
-                    { "nome", area.Key },
-                    { "peso", area.Value },
-                };
-
-                await docRef.SetAsync(areaAtuacao);
-            }
-            return true;
         }
     }
 }

@@ -9,6 +9,5 @@ namespace StoneChallenge.Domain.Interfaces.Repositories
     public interface IAreasAtuacaoRepository
     {
         Task<IDictionary<string, object>> GetAll();
-        Task<bool> InsertAreasDeAtuacao(IDictionary<string, object> areasAtuacao);
     }
 }
