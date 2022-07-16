@@ -25,25 +25,22 @@ namespace StoneChallenge.Infra.Data.Repositories
         public async Task<IList<Funcionario>> GetAll()
         {
             CollectionReference collectionFuncionarios = _firestoreDb.Collection("funcionarios");
-            QuerySnapshot snapshot = await collectionFuncionarios.GetSnapshotAsync();
+            QuerySnapshot snapshotFuncionarios = await collectionFuncionarios.GetSnapshotAsync();
             IList<Funcionario> funcionarios = new List<Funcionario>();
 
-            foreach (DocumentSnapshot document in snapshot.Documents)
+            foreach (DocumentSnapshot document in snapshotFuncionarios.Documents)
             {
-                if (document.Exists)
-                {
-                    var funcionario = document.ToDictionary();
+                var funcionario = document.ToDictionary();
 
-                    funcionarios.Add(new Funcionario()
-                    {
-                        Matricula = funcionario["matricula"].ToString(),
-                        Nome = funcionario["nome"].ToString(),
-                        AreaAtuacao = funcionario["area"].ToString(),
-                        Cargo = funcionario["cargo"].ToString(),
-                        Salario = (double)funcionario["salario_bruto"],
-                        DataAdmissao = DateTime.Parse(funcionario["data_de_admissao"].ToString())
-                    });
-                }
+                funcionarios.Add(new Funcionario()
+                {
+                    Matricula = funcionario["matricula"].ToString(),
+                    Nome = funcionario["nome"].ToString(),
+                    AreaAtuacao = funcionario["area"].ToString(),
+                    Cargo = funcionario["cargo"].ToString(),
+                    Salario = (double)funcionario["salario_bruto"],
+                    DataAdmissao = DateTime.Parse(funcionario["data_de_admissao"].ToString())
+                });
             }
 
             return funcionarios;

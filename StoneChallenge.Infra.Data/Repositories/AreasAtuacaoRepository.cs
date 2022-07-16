@@ -22,17 +22,14 @@ namespace StoneChallenge.Infra.Data.Repositories
 
         public async Task<IDictionary<string, object>> GetAll()
         {
-            Query allCitiesQuery = _firestoreDb.Collection("areas-atuacao");
-            QuerySnapshot snapshot = await allCitiesQuery.GetSnapshotAsync();
+            CollectionReference collectionAreas = _firestoreDb.Collection("areas-atuacao");
+            QuerySnapshot snapshotAreas = await collectionAreas.GetSnapshotAsync();
             IDictionary<string, object> areasDeAtuacao = new Dictionary<string, object>();
 
-            foreach (DocumentSnapshot document in snapshot.Documents)
+            foreach (DocumentSnapshot document in snapshotAreas.Documents)
             {
-                if (document.Exists)
-                {
-                    var KeyValuePair = document.ToDictionary();
-                    areasDeAtuacao.Add(KeyValuePair.FirstOrDefault());
-                }
+                var KeyValuePair = document.ToDictionary();
+                areasDeAtuacao.Add(KeyValuePair.First());
             }
 
             return areasDeAtuacao;

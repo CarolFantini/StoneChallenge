@@ -51,7 +51,7 @@ namespace StoneChallenge.Application.Services
         {
             var areasDeAtuacao = await _areasAtuacaoRepository.GetAll();
 
-            var pesoAreaDeAtuacao = (int)areasDeAtuacao.Where(x => x.Key == funcionario.AreaAtuacao).FirstOrDefault().Value;
+            var pesoAreaDeAtuacao = Convert.ToInt32(areasDeAtuacao.Where(x => x.Key == funcionario.AreaAtuacao).FirstOrDefault().Value);
 
             return pesoAreaDeAtuacao;
         }
