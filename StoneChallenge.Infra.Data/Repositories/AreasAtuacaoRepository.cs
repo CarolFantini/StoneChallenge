@@ -10,13 +10,14 @@ namespace StoneChallenge.Infra.Data.Repositories
 {
     public class AreasAtuacaoRepository : IAreasAtuacaoRepository
     {
-        private const string DIRETORIO_CREDENCIAIS = "C:\\Users\\55219\\Downloads\\Repos\\StoneChallenge\\StoneChallenge.API\\stonechallenge-credentials.json";
+        private string CREDENCIAIS;
         private const string ID_PROJETO = "stonechallenge-21808";
         private FirestoreDb _firestoreDb;
 
         public AreasAtuacaoRepository()
         {
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", DIRETORIO_CREDENCIAIS);
+            CREDENCIAIS = AppContext.BaseDirectory + @"stonechallenge-credentials.json";
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", CREDENCIAIS);
             _firestoreDb = FirestoreDb.Create(ID_PROJETO);
         }
 

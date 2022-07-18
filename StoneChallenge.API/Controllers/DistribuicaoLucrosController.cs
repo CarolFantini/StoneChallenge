@@ -25,56 +25,57 @@ namespace StoneChallenge.API.Controllers
             _pesosDistribuicaoLucrosService = pesosDistribuicaoLucrosService;
         }
 
-        private async Task<DistribuicaoLucroViewModel> CalculaBonus()
+        [HttpGet("informa-distribuicao-lucro")]
+        [SwaggerOperation(
+            Summary = "Retorna a distribuição de lucros entre os funcionários",
+            Description = "Retorna os valores referentes a distribuição de lucros entre os funcionarios, " +
+            "assim como total de funcionários, soma do que foi pago em PL a todos os funcionários, o valor que " +
+            "a empresa desejava distribuir e o total disponibilizado menos o total distribuido."
+            )]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<DistribuicaoLucroViewModel>> InformaDistribuicaoLucro(double total_disponibilizado)
         {
             DistribuicaoLucroViewModel distribuicaoLucro = new DistribuicaoLucroViewModel();
             var total_distribuido = 0.0;
 
             var funcionarios = await _funcionarioRepository.GetAll();
 
-            distribuicaoLucro.total_de_funcionarios = funcionarios.Count();
-
-            for (int cont = 1; cont < funcionarios.Count(); cont++)
+            if (funcionarios == null)
             {
-                var pesoSalario = _pesosDistribuicaoLucrosService.CalculaPesoSalario(funcionarios[cont]);
-                var pesoDataAdmissao = _pesosDistribuicaoLucrosService.CalculaPesoDataAdmissao(funcionarios[cont]);
-                var pesoAreaAtuacao = _pesosDistribuicaoLucrosService.CalculaPesoAreaAtuacao(funcionarios[cont]);
-
-                var bonusIndividual = ((funcionarios[cont].Salario * pesoDataAdmissao) +
-                                      (funcionarios[cont].Salario * pesoAreaAtuacao.Result) /
-                                      funcionarios[cont].Salario * pesoSalario) * 12;
-
-                total_distribuido += bonusIndividual;
-
-                distribuicaoLucro.participacoes.Add(new
-                {
-                    matricula = funcionarios[cont].Matricula,
-                    nome = funcionarios[cont].Nome,
-                    valor_da_participação = bonusIndividual.ToString("C", CultureInfo.CurrentCulture)
-                }); ;
+                _logger.LogWarning("Funcionários não encontrados.");
+                return NotFound();
             }
+            else
+            {
+                distribuicaoLucro.total_de_funcionarios = funcionarios.Count();
 
-            distribuicaoLucro.total_distribuido = total_distribuido;
+                for (int cont = 1; cont < funcionarios.Count(); cont++)
+                {
+                    var pesoSalario = _pesosDistribuicaoLucrosService.CalculaPesoSalario(funcionarios[cont]);
+                    var pesoDataAdmissao = _pesosDistribuicaoLucrosService.CalculaPesoDataAdmissao(funcionarios[cont]);
+                    var pesoAreaAtuacao = _pesosDistribuicaoLucrosService.CalculaPesoAreaAtuacao(funcionarios[cont]);
 
-            return distribuicaoLucro;
-        }
+                    var bonusIndividual = ((funcionarios[cont].Salario * pesoDataAdmissao) +
+                                          (funcionarios[cont].Salario * pesoAreaAtuacao.Result) /
+                                          funcionarios[cont].Salario * pesoSalario) * 12;
 
-        [HttpGet("informa-distribuicao-lucro")]
-        [SwaggerOperation(
-            Summary = "Retorna a distribuição de lucros entre os funcionários",
-            Description = "Retorna as informações referentes a distribuição de lucros entre os funcionarios, " +
-            "assim como total de funcionários, soma do que foi pago em PL a todos os funcionários, o valor que " +
-            "a empresa desejava distribuir e o total disponibilizado menos o total distribuido."
-            )]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<DistribuicaoLucroViewModel>> InformaDistribuicaoLucro(double total_disponibilizado)
-        {
-            var distribuicaoLucro = await CalculaBonus();
+                    total_distribuido += bonusIndividual;
 
-            distribuicaoLucro.total_disponibilizado = total_disponibilizado;
-            distribuicaoLucro.saldo_total_disponibilizado = total_disponibilizado - distribuicaoLucro.total_distribuido;
+                    distribuicaoLucro.participacoes.Add(new
+                    {
+                        matricula = funcionarios[cont].Matricula,
+                        nome = funcionarios[cont].Nome,
+                        valor_da_participação = bonusIndividual.ToString("C", CultureInfo.CurrentCulture)
+                    }); ;
+                }
 
-            return Ok(distribuicaoLucro);
+                distribuicaoLucro.total_distribuido = total_distribuido;
+                distribuicaoLucro.total_disponibilizado = total_disponibilizado;
+                distribuicaoLucro.saldo_total_disponibilizado = total_disponibilizado - distribuicaoLucro.total_distribuido;
+
+                return Ok(distribuicaoLucro);
+            }
         }
     }
 }
