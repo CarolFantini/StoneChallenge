@@ -10,19 +10,17 @@ namespace StoneChallenge.Infra.Data.Repositories
 {
     public class AreasAtuacaoRepository : IAreasAtuacaoRepository
     {
-        private string CREDENCIAIS;
-        private const string ID_PROJETO = "stonechallenge-21808";
-        private FirestoreDb _firestoreDb;
+        private DbConnection _dbConnection;
 
         public AreasAtuacaoRepository()
         {
-            CREDENCIAIS = AppContext.BaseDirectory + @"stonechallenge-credentials.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", CREDENCIAIS);
-            _firestoreDb = FirestoreDb.Create(ID_PROJETO);
+            _dbConnection = new DbConnection();
         }
 
         public async Task<IDictionary<string, object>> GetAll()
         {
+            var _firestoreDb = _dbConnection.CreateConnection();
+
             CollectionReference collectionAreas = _firestoreDb.Collection("areas-atuacao");
             QuerySnapshot snapshotAreas = await collectionAreas.GetSnapshotAsync();
             IDictionary<string, object> areasDeAtuacao = new Dictionary<string, object>();

@@ -12,19 +12,17 @@ namespace StoneChallenge.Infra.Data.Repositories
 {
     public class FuncionarioRepository : IFuncionarioRepository
     {
-        private string CREDENCIAIS;
-        private const string ID_PROJETO = "stonechallenge-21808";
-        private FirestoreDb _firestoreDb;
+        private DbConnection _dbConnection;
 
         public FuncionarioRepository()
         {
-            CREDENCIAIS = AppContext.BaseDirectory + @"stonechallenge-credentials.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", CREDENCIAIS);
-            _firestoreDb = FirestoreDb.Create(ID_PROJETO);
+            _dbConnection = new DbConnection();
         }
 
         public async Task<IList<Funcionario>> GetAll()
         {
+            var _firestoreDb = _dbConnection.CreateConnection();
+
             CollectionReference collectionFuncionarios = _firestoreDb.Collection("funcionarios");
             QuerySnapshot snapshotFuncionarios = await collectionFuncionarios.GetSnapshotAsync();
             IList<Funcionario> funcionarios = new List<Funcionario>();

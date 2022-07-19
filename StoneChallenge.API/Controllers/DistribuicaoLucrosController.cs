@@ -61,9 +61,7 @@ namespace StoneChallenge.API.Controllers
                     return new StatusCodeResult(500);
                 }
 
-                bonusIndividual = ((funcionarios[cont].Salario * pesoDataAdmissao) +
-                                          (funcionarios[cont].Salario * pesoAreaAtuacao.Result) /
-                                          funcionarios[cont].Salario * pesoSalario) * 12;
+                bonusIndividual = (funcionarios[cont].Salario * pesoDataAdmissao) + (funcionarios[cont].Salario * pesoAreaAtuacao.Result) / (funcionarios[cont].Salario * pesoSalario) * 12;
 
                 total_distribuido += bonusIndividual;
 

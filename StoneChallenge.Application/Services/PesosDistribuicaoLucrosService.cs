@@ -24,7 +24,7 @@ namespace StoneChallenge.Application.Services
             DateTime dataAtual = DateTime.Now.Date;
             int pesoDataAdmissao = 0;
 
-            var DiferencaEntreDatas = (dataAtual - funcionario.DataAdmissao.Date).Days;
+            float DiferencaEntreDatas = (dataAtual - funcionario.DataAdmissao.Date).Days;
 
             DiferencaEntreDatas = DiferencaEntreDatas / DIAS_NO_ANO;
 
@@ -63,7 +63,7 @@ namespace StoneChallenge.Application.Services
         {
             const float SALARIO_MINIMO = 1212;
             int pesoSalario = 0;
-            var multiplicadorSalarioMinimo = funcionario.Salario / SALARIO_MINIMO;
+            double multiplicadorSalarioMinimo = funcionario.Salario / SALARIO_MINIMO;
 
             switch (multiplicadorSalarioMinimo)
             {
