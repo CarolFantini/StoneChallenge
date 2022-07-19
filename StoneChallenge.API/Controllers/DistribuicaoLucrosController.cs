@@ -34,48 +34,51 @@ namespace StoneChallenge.API.Controllers
             )]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<DistribuicaoLucroViewModel>> InformaDistribuicaoLucro(double total_disponibilizado)
+        public async Task<IActionResult> InformaDistribuicaoLucro(double total_disponibilizado)
         {
             DistribuicaoLucroViewModel distribuicaoLucro = new DistribuicaoLucroViewModel();
             var total_distribuido = 0.0;
+            var bonusIndividual = 0.0;
 
             var funcionarios = await _funcionarioRepository.GetAll();
 
-            if (funcionarios == null)
+            if (!funcionarios.Any())
             {
                 _logger.LogWarning("Funcionários não encontrados.");
                 return NotFound();
             }
-            else
+
+            distribuicaoLucro.total_de_funcionarios = funcionarios.Count();
+
+            for (int cont = 1; cont < funcionarios.Count(); cont++)
             {
-                distribuicaoLucro.total_de_funcionarios = funcionarios.Count();
+                var pesoAreaAtuacao = _pesosDistribuicaoLucrosService?.CalculaPesoAreaAtuacao(funcionarios[cont]);
+                var pesoSalario = _pesosDistribuicaoLucrosService.CalculaPesoSalario(funcionarios[cont]);
+                var pesoDataAdmissao = _pesosDistribuicaoLucrosService.CalculaPesoDataAdmissao(funcionarios[cont]);
 
-                for (int cont = 1; cont < funcionarios.Count(); cont++)
+                if (pesoAreaAtuacao.Result == 0 || pesoSalario == 0 || pesoDataAdmissao == 0)
                 {
-                    var pesoSalario = _pesosDistribuicaoLucrosService.CalculaPesoSalario(funcionarios[cont]);
-                    var pesoDataAdmissao = _pesosDistribuicaoLucrosService.CalculaPesoDataAdmissao(funcionarios[cont]);
-                    var pesoAreaAtuacao = _pesosDistribuicaoLucrosService.CalculaPesoAreaAtuacao(funcionarios[cont]);
+                    return new StatusCodeResult(500);
+                }
 
-                    var bonusIndividual = ((funcionarios[cont].Salario * pesoDataAdmissao) +
+                bonusIndividual = ((funcionarios[cont].Salario * pesoDataAdmissao) +
                                           (funcionarios[cont].Salario * pesoAreaAtuacao.Result) /
                                           funcionarios[cont].Salario * pesoSalario) * 12;
 
-                    total_distribuido += bonusIndividual;
+                total_distribuido += bonusIndividual;
 
-                    distribuicaoLucro.participacoes.Add(new
-                    {
-                        matricula = funcionarios[cont].Matricula,
-                        nome = funcionarios[cont].Nome,
-                        valor_da_participação = bonusIndividual.ToString("C", CultureInfo.CurrentCulture)
-                    }); ;
-                }
+                distribuicaoLucro.participacoes.Add(new
+                {
+                    matricula = funcionarios[cont].Matricula,
+                    nome = funcionarios[cont].Nome,
+                    valor_da_participação = bonusIndividual.ToString("C", CultureInfo.CurrentCulture)
+                });
 
                 distribuicaoLucro.total_distribuido = total_distribuido;
                 distribuicaoLucro.total_disponibilizado = total_disponibilizado;
                 distribuicaoLucro.saldo_total_disponibilizado = total_disponibilizado - distribuicaoLucro.total_distribuido;
-
-                return Ok(distribuicaoLucro);
             }
+            return Ok(distribuicaoLucro);
         }
     }
 }

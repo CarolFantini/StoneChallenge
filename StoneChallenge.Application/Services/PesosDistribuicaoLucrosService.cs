@@ -51,9 +51,12 @@ namespace StoneChallenge.Application.Services
         {
             var areasDeAtuacao = await _areasAtuacaoRepository.GetAll();
 
-            var pesoAreaDeAtuacao = Convert.ToInt32(areasDeAtuacao.Where(x => x.Key == funcionario.AreaAtuacao).FirstOrDefault().Value);
+            if (areasDeAtuacao.Any())
+            {
+                return Convert.ToInt32(areasDeAtuacao.Where(x => x.Key == funcionario.AreaAtuacao).FirstOrDefault().Value); ;
+            }
 
-            return pesoAreaDeAtuacao;
+            return 0;
         }
 
         public int CalculaPesoSalario(Funcionario funcionario)
