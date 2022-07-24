@@ -10,7 +10,7 @@ namespace StoneChallenge.Infra.Data.Repositories
 {
     public class AreasAtuacaoRepository : IAreasAtuacaoRepository
     {
-        private DbConnection _dbConnection;
+        private IDbConnection _dbConnection;
 
         public AreasAtuacaoRepository()
         {
@@ -19,7 +19,7 @@ namespace StoneChallenge.Infra.Data.Repositories
 
         public async Task<IDictionary<string, object>> GetAll()
         {
-            var _firestoreDb = _dbConnection.CreateConnection();
+            var _firestoreDb = _dbConnection.CreateConnection("stonechallenge-credentials.json", "stonechallenge-21808");
 
             CollectionReference collectionAreas = _firestoreDb.Collection("areas-atuacao");
             QuerySnapshot snapshotAreas = await collectionAreas.GetSnapshotAsync();

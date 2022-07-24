@@ -29,13 +29,13 @@ namespace StoneChallenge.Tests.Controllers
         [Fact]
         public async Task InformaDistribuicaoLucroShouldReturnOkTest()
         {
-            double total_disponibilizado = 50000000;
+            var total_disponibilizado = 50000000;
             DistribuicaoLucroViewModel distribuicaoLucro = new DistribuicaoLucroViewModel
             {
                 total_de_funcionarios = 5,
-                total_disponibilizado = total_disponibilizado,
-                total_distribuido = 5000,
-                saldo_total_disponibilizado = total_disponibilizado - 5000,
+                total_disponibilizado = "50000",
+                total_distribuido = "5000",
+                saldo_total_disponibilizado = (Convert.ToInt64(total_disponibilizado) - 5000).ToString(),
                 participacoes = { }
             };
 

@@ -9,20 +9,10 @@ namespace StoneChallenge.Infra.Data
 {
     public class DbConnection : IDbConnection
     {
-        private string? CREDENCIAIS;
-        private const string ID_PROJETO = "stonechallenge-21808";
-        private FirestoreDb _firestoreDb;
-
-        public FirestoreDb CreateConnection()
+        public FirestoreDb CreateConnection(string credentialsJson, string idProjeto)
         {
-            CREDENCIAIS = AppContext.BaseDirectory + @"stonechallenge-credentials.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", CREDENCIAIS);
-            return FirestoreDb.Create(ID_PROJETO);
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", AppContext.BaseDirectory + credentialsJson);
+            return FirestoreDb.Create(idProjeto);
         }
-    }
-
-    public interface IDbConnection
-    {
-        FirestoreDb CreateConnection();
     }
 }

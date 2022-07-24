@@ -12,7 +12,7 @@ namespace StoneChallenge.Infra.Data.Repositories
 {
     public class FuncionarioRepository : IFuncionarioRepository
     {
-        private DbConnection _dbConnection;
+        private IDbConnection _dbConnection;
 
         public FuncionarioRepository()
         {
@@ -21,7 +21,7 @@ namespace StoneChallenge.Infra.Data.Repositories
 
         public async Task<IList<Funcionario>> GetAll()
         {
-            var _firestoreDb = _dbConnection.CreateConnection();
+            var _firestoreDb = _dbConnection.CreateConnection("stonechallenge-credentials.json", "stonechallenge-21808");
 
             CollectionReference collectionFuncionarios = _firestoreDb.Collection("funcionarios");
             QuerySnapshot snapshotFuncionarios = await collectionFuncionarios.GetSnapshotAsync();

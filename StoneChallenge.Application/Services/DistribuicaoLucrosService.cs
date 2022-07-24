@@ -62,9 +62,9 @@ namespace StoneChallenge.Application.Services
             }
 
             distribuicaoLucro.total_de_funcionarios = funcionarios.Count();
-            distribuicaoLucro.total_distribuido = total_distribuido;
-            distribuicaoLucro.total_disponibilizado = total_disponibilizado;
-            distribuicaoLucro.saldo_total_disponibilizado = total_disponibilizado - distribuicaoLucro.total_distribuido;
+            distribuicaoLucro.total_distribuido = total_distribuido.ToString("C", CultureInfo.CurrentCulture);
+            distribuicaoLucro.total_disponibilizado = total_disponibilizado.ToString("C", CultureInfo.CurrentCulture);
+            distribuicaoLucro.saldo_total_disponibilizado = (total_disponibilizado - total_distribuido).ToString("C", CultureInfo.CurrentCulture);
 
             return distribuicaoLucro;
         }
