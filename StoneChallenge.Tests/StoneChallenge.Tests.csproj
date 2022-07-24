@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StoneChallenge.API\StoneChallenge.API.csproj" />
+    <ProjectReference Include="..\StoneChallenge.API\StoneChallenge.WebUI.csproj" />
     <ProjectReference Include="..\StoneChallenge.Domain\StoneChallenge.Domain.csproj" />
   </ItemGroup>
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StoneChallenge.Application.Interfaces
+namespace StoneChallenge.Application.Interfaces.Services
 {
     public interface IPesosDistribuicaoLucrosService
     {

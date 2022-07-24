@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.API", "StoneChallenge.API\StoneChallenge.API.csproj", "{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.WebUI", "StoneChallenge.API\StoneChallenge.WebUI.csproj", "{E9C1F8E4-12FA-4B89-8BB8-77D7F5048C5E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{93219D47-B89D-496F-B18F-71B682E01B8A} = {93219D47-B89D-496F-B18F-71B682E01B8A}
 	EndProjectSection
@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Infra.IoC", 
 		{C13C7403-E572-47B5-9FC5-9140382899C5} = {C13C7403-E572-47B5-9FC5-9140382899C5}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneChallenge.Tests", "StoneChallenge.Tests\StoneChallenge.Tests.csproj", "{39ED893F-456C-4A3C-8D79-A12B483928E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoneChallenge.Tests", "StoneChallenge.Tests\StoneChallenge.Tests.csproj", "{39ED893F-456C-4A3C-8D79-A12B483928E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using StoneChallenge.Application.Interfaces;
+using StoneChallenge.Application.Interfaces.Services;
 using StoneChallenge.Application.Services;
 using StoneChallenge.Domain.Interfaces.Repositories;
 using StoneChallenge.Infra.Data.Repositories;
@@ -18,6 +18,7 @@ namespace StoneChallenge.Infra.IoC
 
             // Services Injection
             services.AddScoped<IPesosDistribuicaoLucrosService, PesosDistribuicaoLucrosService>();
+            services.AddScoped<IDistribuicaoLucrosService, DistribuicaoLucrosService>();
 
             return services;
         }

@@ -2,9 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using StoneChallenge.API.Controllers;
-using StoneChallenge.Application.Interfaces;
-using StoneChallenge.Domain.Entities;
-using StoneChallenge.Domain.Interfaces.Repositories;
+using StoneChallenge.Application.Interfaces.Services;
+using StoneChallenge.Application.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,73 +15,46 @@ namespace StoneChallenge.Tests.Controllers
     public class DistribuicaoLucrosControllerTests
     {
         private readonly Mock<ILogger<DistribuicaoLucrosController>> _logger;
-        private readonly Mock<IFuncionarioRepository> _funcionarioRepository;
-        private readonly Mock<IPesosDistribuicaoLucrosService> _pesosDistribuicaoLucrosService;
+        private readonly Mock<IDistribuicaoLucrosService> _distribuicaoLucrosService;
         private readonly DistribuicaoLucrosController _distribuicaoLucrosController;
 
         public DistribuicaoLucrosControllerTests()
         {
             _logger = new Mock<ILogger<DistribuicaoLucrosController>>();
-            _funcionarioRepository = new Mock<IFuncionarioRepository>();
-            _pesosDistribuicaoLucrosService = new Mock<IPesosDistribuicaoLucrosService>();
-            _distribuicaoLucrosController = new DistribuicaoLucrosController(_logger.Object, _funcionarioRepository.Object, _pesosDistribuicaoLucrosService.Object);
+            _distribuicaoLucrosService = new Mock<IDistribuicaoLucrosService>();
+            _distribuicaoLucrosController = new DistribuicaoLucrosController(_logger.Object,
+                                                                             _distribuicaoLucrosService.Object);
         }
 
-        [Theory]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(3)]
-        [InlineData(5)]
-        public async Task InformaDistribuicaoLucroShouldReturnOkTest(int peso)
+        [Fact]
+        public async Task InformaDistribuicaoLucroShouldReturnOkTest()
         {
-            IList<Funcionario> funcionarios = new List<Funcionario>
-            {
-                new Funcionario
-                {
-                     AreaAtuacao = "Tecnologia",
-                     Cargo = "Analista de Sistemas",
-                     DataAdmissao = DateTime.Now.Date,
-                     Matricula = "U2154",
-                     Nome = "Camila Ferraz",
-                     Salario = 15000
-                }
-            };
-            Funcionario funcionario = new Funcionario();
             double total_disponibilizado = 50000000;
+            DistribuicaoLucroViewModel distribuicaoLucro = new DistribuicaoLucroViewModel
+            {
+                total_de_funcionarios = 5,
+                total_disponibilizado = total_disponibilizado,
+                total_distribuido = 5000,
+                saldo_total_disponibilizado = total_disponibilizado - 5000,
+                participacoes = { }
+            };
 
-            _funcionarioRepository.Setup(x => x.GetAll()).ReturnsAsync(funcionarios).Verifiable();
-            _pesosDistribuicaoLucrosService.Setup(x => x.CalculaPesoSalario(funcionario)).Returns(peso).Verifiable();
-            _pesosDistribuicaoLucrosService.Setup(x => x.CalculaPesoAreaAtuacao(funcionario)).Returns(() => Task.FromResult(peso)).Verifiable();
-            _pesosDistribuicaoLucrosService.Setup(x => x.CalculaPesoDataAdmissao(funcionario)).Returns(peso).Verifiable();
+
+            _distribuicaoLucrosService.Setup(x => x.calculaBonus(total_disponibilizado)).ReturnsAsync(distribuicaoLucro).Verifiable();
 
             var result = await _distribuicaoLucrosController.InformaDistribuicaoLucro(total_disponibilizado);
 
             Assert.IsType<OkObjectResult>(result);
         }
 
-        [Theory]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(3)]
-        [InlineData(5)]
-        public async Task InformaDistribuicaoLucroShouldReturnNotFoundTest(int peso)
+        [Fact]
+        public async Task InformaDistribuicaoLucroShouldReturnNotFoundTest()
         {
-            IList<Funcionario> funcionarios = new List<Funcionario>();
-            Funcionario funcionario = new Funcionario
-            {
-                AreaAtuacao = "Contabilidade",
-                Cargo = "Contadora",
-                DataAdmissao = DateTime.Now.Date,
-                Matricula = "U5487",
-                Nome = "Fernanda Ferraz",
-                Salario = 5000
-            };
+            DistribuicaoLucroViewModel distribuicaoLucro = new DistribuicaoLucroViewModel();
+            distribuicaoLucro.total_de_funcionarios = 0;
             double total_disponibilizado = 50000000;
 
-            _funcionarioRepository.Setup(x => x.GetAll()).ReturnsAsync(funcionarios).Verifiable();
-            _pesosDistribuicaoLucrosService.Setup(x => x.CalculaPesoSalario(funcionario)).Returns(peso).Verifiable();
-            _pesosDistribuicaoLucrosService.Setup(x => x.CalculaPesoAreaAtuacao(funcionario)).Returns(() => Task.FromResult(peso)).Verifiable();
-            _pesosDistribuicaoLucrosService.Setup(x => x.CalculaPesoDataAdmissao(funcionario)).Returns(peso).Verifiable();
+            _distribuicaoLucrosService.Setup(x => x.calculaBonus(total_disponibilizado)).ReturnsAsync(distribuicaoLucro).Verifiable();
 
             var result = await _distribuicaoLucrosController.InformaDistribuicaoLucro(total_disponibilizado);
 

@@ -1,4 +1,4 @@
-﻿using StoneChallenge.Application.Interfaces;
+﻿using StoneChallenge.Application.Interfaces.Services;
 using StoneChallenge.Domain.Entities;
 using StoneChallenge.Domain.Interfaces.Repositories;
 using System;
