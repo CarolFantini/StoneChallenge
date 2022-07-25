@@ -1,5 +1,4 @@
 ﻿using Google.Cloud.Firestore;
-using Newtonsoft.Json;
 using StoneChallenge.Domain.Entities;
 using StoneChallenge.Domain.Interfaces.Repositories;
 using System;
@@ -13,16 +12,16 @@ namespace StoneChallenge.Infra.Data.Repositories
     public class FuncionarioRepository : IFuncionarioRepository
     {
         private IDbConnection _dbConnection;
+        FirestoreDb _firestoreDb;
 
         public FuncionarioRepository()
         {
             _dbConnection = new DbConnection();
+            _firestoreDb = _dbConnection.CreateConnection("stonechallenge-credentials.json", "stonechallenge-21808");
         }
 
         public async Task<IList<Funcionario>> GetAll()
         {
-            var _firestoreDb = _dbConnection.CreateConnection("stonechallenge-credentials.json", "stonechallenge-21808");
-
             CollectionReference collectionFuncionarios = _firestoreDb.Collection("funcionarios");
             QuerySnapshot snapshotFuncionarios = await collectionFuncionarios.GetSnapshotAsync();
             IList<Funcionario> funcionarios = new List<Funcionario>();
