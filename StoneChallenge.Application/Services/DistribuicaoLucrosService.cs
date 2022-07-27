@@ -46,19 +46,26 @@ namespace StoneChallenge.Application.Services
 
                 if (pesoAreaAtuacao.Result == 0 || pesoSalario == 0 || pesoDataAdmissao == 0)
                 {
-                    return distribuicaoLucro;
+                    distribuicaoLucro.participacoes.Add(new
+                    {
+                        matricula = funcionarios[cont].Matricula,
+                        nome = funcionarios[cont].Nome,
+                        valor_da_participação = "Erro ao calcular peso para definir valor do bônus"
+                    });
                 }
-
-                bonusIndividual = (funcionarios[cont].Salario * pesoDataAdmissao) + (funcionarios[cont].Salario * pesoAreaAtuacao.Result) / (funcionarios[cont].Salario * pesoSalario) * 12;
-
-                total_distribuido += bonusIndividual;
-
-                distribuicaoLucro.participacoes.Add(new
+                else
                 {
-                    matricula = funcionarios[cont].Matricula,
-                    nome = funcionarios[cont].Nome,
-                    valor_da_participação = bonusIndividual.ToString("C", CultureInfo.CurrentCulture)
-                });
+                    bonusIndividual = (funcionarios[cont].Salario * pesoDataAdmissao) + (funcionarios[cont].Salario * pesoAreaAtuacao.Result) / (funcionarios[cont].Salario * pesoSalario) * 12;
+
+                    total_distribuido += bonusIndividual;
+
+                    distribuicaoLucro.participacoes.Add(new
+                    {
+                        matricula = funcionarios[cont].Matricula,
+                        nome = funcionarios[cont].Nome,
+                        valor_da_participação = bonusIndividual.ToString("C", CultureInfo.CurrentCulture)
+                    });
+                }
             }
 
             distribuicaoLucro.total_de_funcionarios = funcionarios.Count();
