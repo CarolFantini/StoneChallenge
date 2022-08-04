@@ -3,7 +3,7 @@
 ### English
 Technical challenge developed for .NET developer position.
 
-Technologies used: .NET 6, Cloud Firestore 3.0.0, xUnit 2.4.5 and Swagger 6.4.0.
+Technologies used: .NET 6, Cloud Firestore 3.0.0, xUnit 2.4.2, Moq 4.18.2 and Swagger 6.4.0.
 
 Challenge Description:
 A company closed the year of operation with a profit and wants to share it among its employees, with the aim of being fair, it created a rule for the distribution of this amount by: area, company time, and salary range (employees who earn less would have their increased participation). For this, the technology team was asked to develop a REST API that receives a maximum amount to distribute and distributes the amount to employees already registered with the data below. Such distribution follows certain rules described below.
