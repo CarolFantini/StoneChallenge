@@ -1,6 +1,5 @@
 ﻿using StoneChallenge.Application.Interfaces.Services;
 using StoneChallenge.Application.ViewModels;
-using StoneChallenge.Domain.Entities;
 using StoneChallenge.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
